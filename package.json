@@ -1,7 +1,7 @@
 {
-  "name": "gitbook-plugin-theme-api",
-  "description": "Theme for using GitBook as an API documentation",
-  "version": "1.1.2",
+  "name": "gitbook-plugin-theme-ncbi",
+  "description": "Theme for using GitBook for NCBI static content",
+  "version": "0.0.1",
   "engines": {
     "gitbook": ">=3.0.4"
   },
@@ -24,19 +24,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GitbookIO/theme-api.git"
+    "url": "https://github.com/klortho/theme-ncbi.git"
   },
-  "author": "FriendCode Inc. <contact@gitbook.com>",
-  "license": "Apache-2.0",
+  "author": "NCBI",
+  "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/GitbookIO/theme-api/issues"
+    "url": "https://github.com/klortho/theme-ncbi/issues"
   },
-  "contributors": [
-    {
-      "name": "Johan Preynat",
-      "email": "johan@gitbook.com"
-    }
-  ],
   "gitbook": {
     "properties": {
       "languages": {
