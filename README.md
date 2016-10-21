@@ -1,144 +1,118 @@
-# GitBook API Theme
+# GitBook NCBI Theme
 
-Theme for using GitBook to publish an API documentation.
+***Pre-alpha state. Do not use!***
 
-This theme works perfectly with search plugins (like [the default plugin](https://github.com/GitbookIO/plugin-search) or [algolia](https://github.com/GitbookIO/plugin-algolia)).
+## Prerequisites and initial setup
 
-![Screenshot](img/theme-api.png)
+* You'll need to have an account on GitHub
+* And one on GitBook. When creating the GitBook account, choose
+  "login with your GitHub account".
+* Add "./node_modules/.bin" to your `PATH`.
 
-It also integrates well with the default fontsettings plugin to use the Dark theme.
+* On GitHub, go to your account settings => integrations, and 
+  authorize GitBook as needed.
 
-![Dark theme](img/theme-dark.png)
 
-### Usage
 
-This theme requires GitBook version 3 or later.
+## Starting a new static site
 
-Add the theme to your book's configuration (book.json):
 
-```json
-{
-    "plugins": ["theme-api"]
-}
-```
+* Create a new GitHub repo, under your own account, to hold the new
+  site
 
-To use the Dark theme by default:
+* Clone this repo and push it up to your new one.
 
-```json
-{
-    "plugins": ["theme-api"],
-    "pluginsConfig": {
-        "theme-api": {
-            "theme": "dark"
-        }
-    }
-}
-```
-
-### Defining methods
-
-The theme allows to easily define methods with examples for different languages, using the templating blocks syntax.
-
-A method block can contain any number of nested `sample` and `common` blocks.
-
-Those nested blocks are documented below.
-
-#### Sample blocks
-
-While the body of the method block will be used as the definition for your method, each `sample` will be used to display examples. To do so, each `sample` block should specify a language using the `lang` arguments.
-
-This is great for managing examples in different languages, for instance when documenting multiple API clients.
-
-    {% method -%}
-    ## Install {#install}
-
-    The first thing is to get the GitBook API client.
-
-    {% sample lang="js" -%}
-    ```bash
-    $ npm install gitbook-api
+    ```
+    git clone https://github.com/Klortho/my-static-site.git
+    cd my-static-site
+    git remote set-url origin git@github.com:<user>/<new-site>.git
+    git push --mirror origin
     ```
 
-    {% sample lang="go" -%}
-    ```bash
-    $ go get github.com/GitbookIO/go-gitbook-api
-    ```
-    {% endmethod %}
+* Create a GitBook, and wire it up to this GitHub repo
+    * From [GitBook.com](https://www.gitbook.com/@klortho/dashboard),
+      click the "New" button
+    * In the left-hand pane, select "GitHub", and fill in the metadata.
+    * Click "Select a repository"
 
-![JS Sample](img/sample-js.png)
-![Go sample](img/sample-go.png)
 
-On each page containing `method` blocks with samples, a switcher is automatically added at the top-right corner to easily select which language to display.
 
-The name of each language can be configured in your `book.json` file, with it's `lang` property corresponding to the `sample` block `lang` argument:
 
-```json
-{
-  "plugins": ["theme-api"],
-  "pluginsConfig": {
-    "theme-api": {
-      "languages": [
-        {
-          "lang": "js",          // sample lang argument
-          "name": "JavaScript",  // corresponding name to be displayed
-          "default": true        // default language to show
-        },
-        {
-          "lang": "go",
-          "name": "Go"
-        }
-      ]
-    }
-  }
-}
+
+
+
+
+## How to create an NCBI static site book from scratch
+
+Our goal is to automate these steps; or to publish a template that
+can be easily cloned to create the scaffolding for a new NCBI static
+site.
+
+### Initialize a new repo
+
+```
+mkdir my-static-site && my-static-site
+npm init
+npm install --save gitbook-cli
+gitbook init  # gives us README.md and SUMMARY.md
+
+git init
+echo '/node_modules/' >> .gitignore
+git add .
+git commit -am 'initial commit'
 ```
 
-![Language switcher](img/lang-switcher.png)
+Next, using your own GitHub account, create a new GitHub repo; e.g. 
+[Klorth/my-static-site](https://github.com/klortho/my-static-site).
 
-Most programming languages are supported by default, with name mapping following the [highlight.js convention](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases).
+Add that as a remote to your local clone, and push.
 
-Note that a `sample` block can contain any markdown content to be displayed for this language, not only code blocks, as illustrated below.
-
-
-#### Common blocks
-
-Common blocks are used to display content to be displayed for all languages in your examples.
-
-    {% method -%}
-    ## Simple method
-
-    {% sample lang="js" -%}
-    This text will only appear for JavaScript.
-
-    {% sample lang="go" -%}
-    This text will only appear for Go.
-
-    {% common -%}
-    This will appear for both JavaScript and Go.
-    {% endmethod %}
-
-
-### Layout
-
-The theme provides two layouts to display your examples: one-column or two-columns (split).
-
-###### One column layout
-![One column](img/one-column.png)
-
-###### Split layout
-![Split](img/split.png)
-
-The layout can be toggled from the toolbar using the layout icon: ![Layout icon](img/layout-icon.png)
-
-The default aspect can also be set in the theme configuration in the `book.json` file:
-
-```json
-{
-  "plugins": ["theme-api"],
-  "pluginsConfig": {
-    "theme-api": {
-      "split": true
-    }
-  }
-}
 ```
+git remote add origin git@github.com:Klortho/my-static-site.git
+git push -u origin master
+```
+
+[toolchain.gitbook.com](http://toolchain.gitbook.com/) - technical
+  docs.
+
+### Deploy to GitBook
+
+Go to [GitBook.com](https://www.gitbook.com) and create an account
+if you don't already have one. We suggest using your GitHub account
+to authenticate yourself on GitBook.
+
+Click the "New" button at the top, and create a new book that imports
+and syncs with your GitHub repo (see the screen shot).
+
+Set up the "Webhook" to enable the GitBook server to push commits to
+the GitHub repo. [Details needed.]
+
+When that's completed, check out some of these URLs, and familiarize 
+yourself with these pages.
+
+* [GitBook Help](https://help.gitbook.com/)
+
+Specific to this new book we just created:
+
+* [Dashboard](https://www.gitbook.com/book/klortho/my-static-site/details)
+* [Updates](https://www.gitbook.com/book/klortho/my-static-site/activity) - 
+  similar to a CI system, gives info about recent changes
+* [Settings](https://www.gitbook.com/book/klortho/my-static-site/settings)
+* [Editor](https://www.gitbook.com/book/klortho/my-static-site/edit)
+
+Play around with the editor, and add some content to your book.
+
+Note that every time you save, the editor generates a Git commit and
+pushes it to GitHub. So, at any point, you can pull the latest changes
+to your local clone, and edit the files there, if you prefer.
+
+If you create new chapters or subsections, the editor automatically
+maintains a Markdown file SUMMARY.md, that encapsulates the 
+table-of-contents information.
+
+### Applying a theme
+
+From the editor, from the drop-down menu in the upper right, select
+"Plugins Store", find the theme you want, 
+"theme-faq".
+
