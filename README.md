@@ -4,115 +4,67 @@
 
 ## Prerequisites and initial setup
 
-* You'll need to have an account on GitHub
-* And one on GitBook. When creating the GitBook account, choose
-  "login with your GitHub account".
-* Add "./node_modules/.bin" to your `PATH`.
+You'll need:
 
-* On GitHub, go to your account settings => integrations, and 
-  authorize GitBook as needed.
-
+* A unix environment with Node.js version ?FIXME? or later. Also, add the 
+  directory "./node_modules/.bin" to your `PATH`.
+* A [GitHub](https://github.com) user account,
+* A [GitBook](https://gitbook.com) user account that's integrated with 
+  GitHub: 
+    * When creating the account, choose "login with your GitHub account".
+    * After the account is created, go to the [GitHub Authorized
+      applications page](https://github.com/settings/applications), and 
+      authorize GitBook as needed.
 
 
 ## Starting a new static site
 
+[Create a new GitHub repository](https://github.com/new), under your own
+account, to hold the static content. Enter a name and a description.
+Do NOT check "Initialize this repository with a README".
 
-* Create a new GitHub repo, under your own account, to hold the new
-  site
+On the next screen, click "Import code", and enter 
+"https://github.com/Klortho/ncbi-static-template.git". Then click "Begin
+import".
 
-* Clone this repo and push it up to your new one.
+> In case you're wondering why we don't recommend using GitHub's "fork"
+> feature to start your new repo, there are many reasons. The main reason
+> is that you can only have one fork of a given repo on GitHub, whereas
+> you might need to manage several static sites.
 
-    ```
-    git clone https://github.com/Klortho/my-static-site.git
-    cd my-static-site
-    git remote set-url origin git@github.com:<user>/<new-site>.git
-    git push --mirror origin
-    ```
+Create a new GitBook, and wire it up to this GitHub repo.
 
-* Create a GitBook, and wire it up to this GitHub repo
-    * From [GitBook.com](https://www.gitbook.com/@klortho/dashboard),
-      click the "New" button
-    * In the left-hand pane, select "GitHub", and fill in the metadata.
-    * Click "Select a repository"
-
-
-
-
-
-
+* From [GitBook.com](https://www.gitbook.com/), click the "New" button
+* In the left-hand pane, scroll down until you find the "GitHub" option,
+  and click that. Fill in the title and description.
+* Click "Select a repository", and you should see a drop-down with a list
+  of all of your GitHub repositories. If you don't, then you need to check
+  your GitBook / GitHub integration.
+* Select the repository you just created, and click "Create book".
 
 
-## How to create an NCBI static site book from scratch
+What that finishes, various resources become available on GitBook.com to 
+help you manage and author your content, at these URLs:
 
-Our goal is to automate these steps; or to publish a template that
-can be easily cloned to create the scaffolding for a new NCBI static
-site.
+* Book dashboard: https://www.gitbook.com/book/{user}/{repo}/details
+* Editor: https://www.gitbook.com/book/{user}/{repo}/edit#/edit/master/README.md
+* Updates: https://www.gitbook.com/book/{user}/{repo}/activity
 
-### Initialize a new repo
+You should also be able to view the published site, with NCBI styling:
 
-```
-mkdir my-static-site && my-static-site
-npm init
-npm install --save gitbook-cli
-gitbook init  # gives us README.md and SUMMARY.md
+* Home page: https://{user}.gitbooks.io/{repo}/content/)
+* Child page: https://{user}.gitbooks.io/{repo}/content/{page}.html)
 
-git init
-echo '/node_modules/' >> .gitignore
-git add .
-git commit -am 'initial commit'
-```
 
-Next, using your own GitHub account, create a new GitHub repo; e.g. 
-[Klorth/my-static-site](https://github.com/klortho/my-static-site).
 
-Add that as a remote to your local clone, and push.
+You should be able to do most editing and management operations from the
+GitBook site. But, if needed, you can also clone your repo to your local 
+machine:
 
 ```
-git remote add origin git@github.com:Klortho/my-static-site.git
-git push -u origin master
+git clone git@github.com:{user}/{repo}.git
+cd my-site
 ```
 
-[toolchain.gitbook.com](http://toolchain.gitbook.com/) - technical
-  docs.
-
-### Deploy to GitBook
-
-Go to [GitBook.com](https://www.gitbook.com) and create an account
-if you don't already have one. We suggest using your GitHub account
-to authenticate yourself on GitBook.
-
-Click the "New" button at the top, and create a new book that imports
-and syncs with your GitHub repo (see the screen shot).
-
-Set up the "Webhook" to enable the GitBook server to push commits to
-the GitHub repo. [Details needed.]
-
-When that's completed, check out some of these URLs, and familiarize 
-yourself with these pages.
-
-* [GitBook Help](https://help.gitbook.com/)
-
-Specific to this new book we just created:
-
-* [Dashboard](https://www.gitbook.com/book/klortho/my-static-site/details)
-* [Updates](https://www.gitbook.com/book/klortho/my-static-site/activity) - 
-  similar to a CI system, gives info about recent changes
-* [Settings](https://www.gitbook.com/book/klortho/my-static-site/settings)
-* [Editor](https://www.gitbook.com/book/klortho/my-static-site/edit)
-
-Play around with the editor, and add some content to your book.
-
-Note that every time you save, the editor generates a Git commit and
-pushes it to GitHub. So, at any point, you can pull the latest changes
-to your local clone, and edit the files there, if you prefer.
-
-If you create new chapters or subsections, the editor automatically
-maintains a Markdown file SUMMARY.md, that encapsulates the 
-table-of-contents information.
-
-### Applying a theme
-
-From the editor, from the drop-down menu in the upper right, select
-"Plugins Store", find the theme you want, 
-"theme-faq".
-
+If you have GitBook / GitHub integration set up correctly, then pushing
+to GitHub will cause GitBook to rebuild the site.
